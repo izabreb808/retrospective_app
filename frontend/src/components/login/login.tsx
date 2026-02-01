@@ -1,17 +1,21 @@
 import { useState } from "react";
 import axios, { AxiosError } from "axios";
+import "@/loginPage.css";
+import { Register } from "../register/register";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+
 
   const handleLogin = async () => {
     try {
       const res = await axios.post("http://localhost:5000/login", { email, password });
-      setToken(res.data.token);
-      setMessage("Zalogowano pomyślnie!");
+      localStorage.setItem("token", res.data.token);
+      navigate("/app");
     } catch (error) {
       let errorMsg = "Błąd logowania";
       if (axios.isAxiosError(error)) {
@@ -24,14 +28,39 @@ export const Login = () => {
     }
   };
 
+  const [showRegisterDialog, setShowRegisterDialog] = useState(false);
+
   return (
-    <div>
-      <h2>Logowanie</h2>
-      <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-      <input type="password" placeholder="Hasło" value={password} onChange={e => setPassword(e.target.value)} />
-      <button onClick={handleLogin}>Zaloguj</button>
-      {token && <p>Token JWT: {token}</p>}
-      <p>{message}</p>
+    <div className="login">
+      <div className="loginPage">
+        <h1>Logowanie</h1>
+
+        <input
+          placeholder="Username"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+
+        <button onClick={() => setShowRegisterDialog(true)}>
+          Zarejestruj
+        </button>
+
+        <button onClick={handleLogin}>Zaloguj</button>
+
+        {message && <p className="error">{message}</p>}
+      </div>
+
+      <Register
+        open={showRegisterDialog}
+        onClose={() => setShowRegisterDialog(false)}
+      />
     </div>
   );
 };

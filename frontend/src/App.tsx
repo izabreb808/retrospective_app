@@ -1,16 +1,28 @@
-import './App.css'
-import React from "react";
-import { Register } from "./components/register/register";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Login } from "./components/login/login";
+import { ProtectedRoute } from "./routes/ProtectedRoute";
+import { Dashboard } from "./pages/dashboard";
 function App() {
 
   return (
-   <div style={{ padding: "20px", fontFamily: "Arial" }}>
-      <h1>Demo Użytkownicy</h1>
-      <Register />
-      <hr />
-      <Login />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+
+        <Route
+          path="/app"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  //  <div style={{ marginTop: "100px", padding: "20px", fontFamily: "Arial" }}>
+  //     <h1>Make your retro easy</h1>
+  //     <Login />
+  //   </div>
   )
 }
 

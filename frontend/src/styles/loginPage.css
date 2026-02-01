@@ -1,0 +1,100 @@
+body, html, .login {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginPage {
+  background-color: #ffffff;
+  padding: 30px;
+  width: 100%;
+  max-width: 360px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+.loginPage h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.loginPage input {
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.loginPage input:focus {
+  border-color: #34495e;
+  outline: none;
+}
+
+.loginPage button {
+  padding: 12px;
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 5px;
+}
+
+.loginPage button:hover {
+  background-color: #1a252f;
+}
+
+.registerPage {
+  background-color: #ffffff;
+  padding: 30px 40px;
+  width: 100%;
+  max-width: 380px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  align-items: stretch;  /* tak, żeby inputy wypełniały szerokość */
+  gap: 18px;             /* odstęp między inputami i error */
+}
+
+.registerPage input {
+  padding: 14px 16px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 17px;
+  transition: border-color 0.3s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.registerPage input:focus {
+  border-color: #2c3e50;
+  outline: none;
+}
+
+.registerPage .error {
+  color: #e74c3c;
+  font-size: 14px;
+  margin: 0; /* lepiej bez margin-top i bottom, bo gap ustawia odstęp */
+  text-align: center;
+  font-weight: 600;
+}
+
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
