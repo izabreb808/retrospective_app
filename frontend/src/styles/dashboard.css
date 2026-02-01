@@ -1,0 +1,85 @@
+/* Layout główny */
+.dashboard {
+  display: flex;
+  height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Sidebar */
+.dashboard aside {
+  width: 240px;
+  background-color: #2c3e50;
+  color: #ffffff;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.dashboard aside h2 {
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.dashboard aside a {
+  color: white;
+  text-decoration: none;
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.dashboard aside a:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* Logout button */
+.dashboard aside button {
+  margin-top: auto;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+/* Main content */
+.dashboard main {
+  flex: 1;
+  background-color: #f5f6fa;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+/* Header w main */
+.dashboard main .header {
+  margin-bottom: 30px;
+}
+
+.dashboard main .header h1 {
+  font-size: 2rem;
+  color: #2c3e50;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+  }
+  
+  .dashboard aside {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 10px;
+  }
+
+  .dashboard aside a {
+    margin-right: 12px;
+    margin-bottom: 0;
+  }
+  
+  .dashboard main {
+    padding: 20px;
+  }
+}

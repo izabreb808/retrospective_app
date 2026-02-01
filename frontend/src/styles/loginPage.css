@@ -1,4 +1,4 @@
-body, html, .login {
+body.loginBody, html.loginBody, .login {
   height: 100vh;
   margin: 0;
   padding: 0;

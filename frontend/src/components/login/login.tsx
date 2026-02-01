@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import "@/loginPage.css";
 import { Register } from "../register/register";
@@ -9,6 +9,13 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.body.classList.add("loginBody");
+    return () => {
+      document.body.classList.remove("loginBody");
+    };
+  }, []);
 
 
   const handleLogin = async () => {

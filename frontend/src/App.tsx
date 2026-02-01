@@ -1,9 +1,13 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Login } from "./components/login/login";
 import { ProtectedRoute } from "./routes/ProtectedRoute";
-import { Dashboard } from "./pages/dashboard";
-function App() {
 
+import { DashboardLayout } from "./pages/dashboard";
+import { Home } from "./pages/Home";
+import { Retrospectives } from "./pages/Retrospectives";
+import { Team } from "./pages/Team";
+
+function App() {
   return (
     <BrowserRouter>
       <Routes>
@@ -13,17 +17,17 @@ function App() {
           path="/app"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <DashboardLayout />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route index element={<Home />} />
+          <Route path="retrospectives" element={<Retrospectives />} />
+          <Route path="team" element={<Team />} />
+        </Route>
       </Routes>
     </BrowserRouter>
-  //  <div style={{ marginTop: "100px", padding: "20px", fontFamily: "Arial" }}>
-  //     <h1>Make your retro easy</h1>
-  //     <Login />
-  //   </div>
-  )
+  );
 }
 
-export default App
+export default App;
