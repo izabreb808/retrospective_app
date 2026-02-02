@@ -2,9 +2,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Login } from "./components/login/login";
 import { ProtectedRoute } from "./routes/ProtectedRoute";
 
-import { DashboardLayout } from "./pages/dashboard";
+import { DashboardLayout } from "./pages/Dashboard";
 import { Home } from "./pages/Home";
 import { Retrospectives } from "./pages/Retrospectives";
+import { RetrospectiveBoard } from "./pages/RetrospectiveBoard";
+
 import { Team } from "./pages/Team";
 
 function App() {
@@ -23,6 +25,7 @@ function App() {
         >
           <Route index element={<Home />} />
           <Route path="retrospectives" element={<Retrospectives />} />
+          <Route path="retrospectives/:id" element={<RetrospectiveBoard />} />
           <Route path="team" element={<Team />} />
         </Route>
       </Routes>

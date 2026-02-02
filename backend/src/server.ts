@@ -32,6 +32,43 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
+const cardSchema = new mongoose.Schema({
+  id: String,
+  text: String,
+  votes: { type: Number, default: 0 },
+});
+
+const columnSchema = new mongoose.Schema({
+  id: String,
+  title: String,
+  cards: [cardSchema],
+});
+
+const retroSchema = new mongoose.Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", unique: true },
+  columns: [columnSchema],
+});
+
+const Retro = mongoose.model("Retro", retroSchema);
+
+
+const auth = (req: any, res: any, next: any) => {
+  const header = req.headers.authorization;
+
+  if (!header) return res.status(401).json({ error: "Brak tokena" });
+
+  const token = header.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
+    req.userId = decoded.userId;
+    next();
+  } catch {
+    res.status(401).json({ error: "Nieprawidłowy token" });
+  }
+};
+
+
 // ------------------------
 // ENDPOINTY
 // ------------------------
@@ -66,6 +103,34 @@ app.post("/login", async (req, res) => {
   const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: "1h" });
   res.json({ token });
 });
+
+// Retro
+app.get("/retro", auth, async (req: any, res) => {
+  let retro = await Retro.findOne({ userId: req.userId });
+
+  if (!retro) {
+    retro = await Retro.create({
+      userId: req.userId,
+      columns: [],
+    });
+  }
+
+  res.json(retro);
+});
+
+app.post("/retro", auth, async (req: any, res) => {
+  const { columns } = req.body;
+
+  const retro = await Retro.findOneAndUpdate(
+    { userId: req.userId },
+    { columns },
+    { upsert: true, new: true }
+  );
+
+  res.json(retro);
+});
+
+
 
 // ------------------------
 // URUCHOMIENIE SERWERA

@@ -1,0 +1,41 @@
+.board {
+  display: flex;
+  gap: 16px;
+  height: calc(100vh - 80px);
+  padding: 16px;
+  overflow-x: auto;
+}
+
+.column {
+  background: #f3f4f6;
+  min-width: 260px;
+  padding: 12px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cards {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.card {
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.cardActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+.addCard {
+  display: flex;
+  gap: 6px;
+}
