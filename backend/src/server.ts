@@ -45,7 +45,10 @@ const columnSchema = new mongoose.Schema({
 });
 
 const retroSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", unique: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  name: String,
+  date: String,
+  status: { type: String, enum: ["open", "closed"], default: "open" },
   columns: [columnSchema],
 });
 
@@ -104,29 +107,45 @@ app.post("/login", async (req, res) => {
   res.json({ token });
 });
 
-// Retro
-app.get("/retro", auth, async (req: any, res) => {
-  let retro = await Retro.findOne({ userId: req.userId });
+// Lista retrospektyw
+app.get("/retros", auth, async (req: any, res) => {
+  const retros = await Retro.find({ userId: req.userId }).sort({ date: -1 });
+  res.json(retros);
+});
 
-  if (!retro) {
-    retro = await Retro.create({
-      userId: req.userId,
-      columns: [],
-    });
-  }
-
+// Tworzenie nowej retrospektywy
+app.post("/retros", auth, async (req: any, res) => {
+  const { name, date } = req.body;
+  const retro = await Retro.create({
+    userId: req.userId,
+    name,
+    date,
+    columns: [
+      { id: "good", title: "✅ Poszło dobrze", cards: [] },
+      { id: "bad", title: "❌ Problemy", cards: [] },
+      { id: "improve", title: "🔧 Do poprawy", cards: [] },
+      { id: "actions", title: "🎯 Action items", cards: [] },
+    ],
+  });
   res.json(retro);
 });
 
-app.post("/retro", auth, async (req: any, res) => {
+// Pobieranie konkretnej retrospektywy
+app.get("/retros/:id", auth, async (req: any, res) => {
+  const retro = await Retro.findOne({ _id: req.params.id, userId: req.userId });
+  if (!retro) return res.status(404).json({ error: "Nie znaleziono" });
+  res.json(retro);
+});
+
+// Aktualizacja retrospektywy
+app.put("/retros/:id", auth, async (req: any, res) => {
   const { columns } = req.body;
-
   const retro = await Retro.findOneAndUpdate(
-    { userId: req.userId },
+    { _id: req.params.id, userId: req.userId },
     { columns },
-    { upsert: true, new: true }
+    { new: true }
   );
-
+  if (!retro) return res.status(404).json({ error: "Nie znaleziono" });
   res.json(retro);
 });
 

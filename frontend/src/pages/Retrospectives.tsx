@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getRetros, createRetro } from "../api/retro";
 
 type Retro = {
-  id: string;
+  _id: string;
   name: string;
   date: string;
   status: "open" | "closed";
@@ -10,37 +11,39 @@ type Retro = {
 
 export const Retrospectives = () => {
   const navigate = useNavigate();
+  const [retros, setRetros] = useState<Retro[]>([]);
 
-  // 🔹 na razie mock – backend dodamy później
-  const [retros, setRetros] = useState<Retro[]>([
-    { id: "1", name: "Sprint 12", date: "2025-02-01", status: "open" },
-    { id: "2", name: "Sprint 11", date: "2025-01-15", status: "closed" },
-  ]);
+  useEffect(() => {
+    getRetros().then(res => setRetros(res.data)).catch(console.error);
+  }, []);
 
-  const createRetro = () => {
-    const newRetro = {
-      id: crypto.randomUUID(),
-      name: `Sprint ${retros.length + 1}`,
-      date: new Date().toISOString().split("T")[0],
-      status: "open" as const,
-    };
-
-    setRetros([newRetro, ...retros]);
+  const handleCreateRetro = () => {
+    const name = `Sprint ${retros.length + 1}`;
+    const date = new Date().toISOString().split("T")[0];
+    createRetro(name, date)
+      .then(res => {
+        console.log('Utworzono:', res.data);
+        setRetros([res.data, ...retros]);
+      })
+      .catch(err => {
+        console.error('Błąd tworzenia:', err.response?.data || err.message);
+        alert('Błąd: ' + (err.response?.data?.error || err.message));
+      });
   };
 
   return (
     <div>
       <h1>Retrospektywy</h1>
 
-      <button onClick={createRetro} style={{ marginBottom: 20 }}>
+      <button onClick={handleCreateRetro} style={{ marginBottom: 20 }}>
         ➕ Nowa retrospektywa
       </button>
 
       <div>
         {retros.map((retro) => (
           <div
-            key={retro.id}
-            onClick={() => navigate(`/app/retrospectives/${retro.id}`)}
+            key={retro._id}
+            onClick={() => navigate(`/app/retrospectives/${retro._id}`)}
             style={{
               padding: 16,
               border: "1px solid #ddd",

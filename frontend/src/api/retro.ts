@@ -8,8 +8,14 @@ const authHeader = () => ({
   },
 });
 
-export const getRetro = () =>
-  axios.get(`${API}/retro`, authHeader());
+export const getRetros = () =>
+  axios.get(`${API}/retros`, authHeader());
 
-export const saveRetro = (columns: unknown) =>
-  axios.post(`${API}/retro`, { columns }, authHeader());
+export const createRetro = (name: string, date: string) =>
+  axios.post(`${API}/retros`, { name, date }, authHeader());
+
+export const getRetro = (id: string) =>
+  axios.get(`${API}/retros/${id}`, authHeader());
+
+export const saveRetro = (id: string, columns: unknown) =>
+  axios.put(`${API}/retros/${id}`, { columns }, authHeader());

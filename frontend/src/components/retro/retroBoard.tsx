@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { RetroColumn } from "./retroColumn";
+import { getRetro, saveRetro } from "../../api/retro";
 import "./retro.css";
 
 export type CardType = {
@@ -15,12 +17,23 @@ export type ColumnType = {
 };
 
 export const RetroBoard = () => {
-  const [columns, setColumns] = useState<ColumnType[]>([
-    { id: "good", title: "✅ Poszło dobrze", cards: [] },
-    { id: "bad", title: "❌ Problemy", cards: [] },
-    { id: "improve", title: "🔧 Do poprawy", cards: [] },
-    { id: "actions", title: "🎯 Action items", cards: [] },
-  ]);
+  const { id } = useParams<{ id: string }>();
+  const [columns, setColumns] = useState<ColumnType[]>([]);
+
+  useEffect(() => {
+    if (id) {
+      getRetro(id).then(res => setColumns(res.data.columns)).catch(console.error);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (id && columns.length) {
+      const timer = setTimeout(() => {
+        saveRetro(id, columns).then(() => console.log('✅ Zapisano')).catch(console.error);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [columns, id]);
 
   const addCard = (columnId: string, text: string) => {
     setColumns(prev =>
