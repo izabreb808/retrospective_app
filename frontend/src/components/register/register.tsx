@@ -51,7 +51,7 @@ export const Register = ({ open, onClose }: RegisterProps) => {
       <DialogTitle>Rejestracja nowego użytkownika</DialogTitle>
 
       <DialogContent>
-        <div className="registerPage">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, paddingTop: 8 }}>
           <TextField
             label="Email"
             type="email"

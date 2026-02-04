@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Timer } from "../components/timer/timer";
 import { RetroBoard } from "../components/retro/retroBoard";
 import axios from "axios";
 
 export const RetrospectiveBoard = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [name, setName] = useState("Retrospektywa");
+  const [status, setStatus] = useState<"open" | "closed">("open");
   const [isEditing, setIsEditing] = useState(false);
 
   const saveName = () => {
@@ -20,6 +22,19 @@ export const RetrospectiveBoard = () => {
     setIsEditing(false);
   };
 
+  const closeRetro = () => {
+    if (id && window.confirm('Czy na pewno chcesz zamknąć tę retrospektywę?')) {
+      axios.put(
+        `http://localhost:5000/retros/${id}`,
+        { status: 'closed' },
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+      ).then(() => {
+        setStatus('closed');
+        alert('Retrospektywa została zamknięta');
+      }).catch(console.error);
+    }
+  };
+
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <div
@@ -30,7 +45,11 @@ export const RetrospectiveBoard = () => {
           borderBottom: "1px solid #ddd",
         }}
       >
-        {isEditing ? (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <button onClick={() => navigate('/app/retrospectives')} style={{ padding: '8px 16px' }}>
+            ←
+          </button>
+          {isEditing ? (
           <input
             value={name}
             onChange={e => setName(e.target.value)}
@@ -52,11 +71,27 @@ export const RetrospectiveBoard = () => {
             </svg>
           </h2>
         )}
-        <Timer />
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          {status === 'open' && (
+            <button 
+              onClick={closeRetro} 
+              style={{ padding: '8px 16px', background: '#ff9800', color: 'white', border: 'none', borderRadius: 4, cursor: 'pointer' }}
+            >
+              Zamknij retrospektywę
+            </button>
+          )}
+          {status === 'closed' && (
+            <span style={{ padding: '8px 16px', background: '#f44336', color: 'white', borderRadius: 4 }}>
+              🔒 Zamknięta
+            </span>
+          )}
+          <Timer />
+        </div>
       </div>
 
-      <div style={{ flex: 1, overflow: "hidden" }}>
-        <RetroBoard onNameChange={setName} />
+      <div style={{ flex: 1, overflow: "hidden", opacity: status === 'closed' ? 0.6 : 1, pointerEvents: status === 'closed' ? 'none' : 'auto' }}>
+        <RetroBoard onNameChange={setName} onStatusChange={setStatus} />
       </div>
     </div>
   );

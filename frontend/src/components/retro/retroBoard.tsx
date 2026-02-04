@@ -18,14 +18,16 @@ export type ColumnType = {
 
 export type RetroData = {
   name: string;
+  status: string;
   columns: ColumnType[];
 };
 
 type Props = {
   onNameChange?: (name: string) => void;
+  onStatusChange?: (status: "open" | "closed") => void;
 };
 
-export const RetroBoard = ({ onNameChange }: Props) => {
+export const RetroBoard = ({ onNameChange, onStatusChange }: Props) => {
   const { id } = useParams<{ id: string }>();
   const [columns, setColumns] = useState<ColumnType[]>([]);
 
@@ -34,9 +36,10 @@ export const RetroBoard = ({ onNameChange }: Props) => {
       getRetro(id).then(res => {
         setColumns(res.data.columns);
         onNameChange?.(res.data.name);
+        onStatusChange?.(res.data.status);
       }).catch(console.error);
     }
-  }, [id, onNameChange]);
+  }, [id, onNameChange, onStatusChange]);
 
   useEffect(() => {
     if (id && columns.length) {

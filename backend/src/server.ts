@@ -214,10 +214,11 @@ app.get("/retros/:id", auth, async (req: any, res) => {
 // Aktualizacja retrospektywy
 app.put("/retros/:id", auth, async (req: any, res) => {
   const user = await User.findById(req.userId);
-  const { columns, name } = req.body;
+  const { columns, name, status } = req.body;
   const update: any = {};
   if (columns) update.columns = columns;
   if (name) update.name = name;
+  if (status) update.status = status;
 
   const retro = await Retro.findOneAndUpdate(
     { _id: req.params.id, teamId: user?.activeTeamId },

@@ -43,23 +43,33 @@ export const Login = () => {
         <h1>Logowanie</h1>
 
         <input
-          placeholder="Username"
+          placeholder="Email"
           value={email}
           onChange={e => setEmail(e.target.value)}
+          onKeyDown={e => e.key === 'Enter' && handleLogin()}
         />
 
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Hasło"
           value={password}
           onChange={e => setPassword(e.target.value)}
+          onKeyDown={e => e.key === 'Enter' && handleLogin()}
         />
 
-        <button onClick={() => setShowRegisterDialog(true)}>
-          Zarejestruj
+        <button 
+          onClick={handleLogin}
+          style={{ background: '#3498db', marginBottom: 10 }}
+        >
+          Zaloguj
         </button>
 
-        <button onClick={handleLogin}>Zaloguj</button>
+        <button 
+          onClick={() => setShowRegisterDialog(true)}
+          style={{ background: '#95a5a6' }}
+        >
+          Zarejestruj
+        </button>
 
         {message && <p className="error">{message}</p>}
       </div>

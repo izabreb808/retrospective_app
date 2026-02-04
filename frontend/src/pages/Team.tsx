@@ -25,15 +25,15 @@ export const Team = () => {
   const [teamName, setTeamName] = useState("");
   const [teamCode, setTeamCode] = useState("");
 
-  useEffect(() => {
-    loadTeams();
-  }, []);
-
   const loadTeams = () => {
     axios.get("http://localhost:5000/teams", {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     }).then(res => setTeams(res.data)).catch(console.error);
   };
+
+  useEffect(() => {
+    loadTeams();
+  }, []);
 
   const createTeam = async () => {
     if (!teamName.trim()) return;
@@ -46,8 +46,9 @@ export const Team = () => {
       alert(`Zespół utworzony! Kod: ${res.data.code}`);
       setTeamName("");
       loadTeams();
-    } catch (err: any) {
-      alert(err.response?.data?.error || "Błąd");
+    } catch (err) {
+      const error = err as { response?: { data?: { error?: string } } };
+      alert(error.response?.data?.error || "Błąd");
     }
   };
 
@@ -61,8 +62,9 @@ export const Team = () => {
       );
       setTeamCode("");
       loadTeams();
-    } catch (err: any) {
-      alert(err.response?.data?.error || "Błąd");
+    } catch (err) {
+      const error = err as { response?: { data?: { error?: string } } };
+      alert(error.response?.data?.error || "Błąd");
     }
   };
 
@@ -98,7 +100,7 @@ export const Team = () => {
     return (
       <div>
         <button onClick={() => setSelectedTeam(null)} style={{ marginBottom: 20, padding: '8px 16px' }}>
-          ← Powrót do listy zespołów
+          ←
         </button>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
@@ -172,7 +174,7 @@ export const Team = () => {
 
   return (
     <div>
-      <h1>Zespół</h1>
+      <h1>Zespoły</h1>
 
       <div style={{ display: 'flex', gap: 10, marginBottom: 20, borderBottom: '2px solid #ddd' }}>
         <button 

@@ -23,17 +23,21 @@ export const DashboardLayout = () => {
           flexDirection: "column",
         }}
       >
-        <h2>Retro App</h2>
+        <h2>Retrospektywa</h2>
 
-        <NavLink to="/app" style={linkStyle}>🏠 Dashboard</NavLink>
+        <NavLink to="/app" style={linkStyle}>🏠 Strona główna</NavLink>
         <NavLink to="/app/retrospectives" style={linkStyle}>📝 Retrospektywy</NavLink>
         <NavLink to="/app/team" style={linkStyle}>👥 Zespół</NavLink>
 
         <div style={{ marginTop: "auto" }}>
           <Button
-            variant="outlined"
+            variant="contained"
             fullWidth
             onClick={logout}
+            sx={{ 
+              bgcolor: '#3498db',
+              '&:hover': { bgcolor: '#2980b9' }
+            }}
           >
             Wyloguj
           </Button>
@@ -41,8 +45,28 @@ export const DashboardLayout = () => {
       </aside>
 
       {/* MAIN */}
-      <main style={{ flex: 1, padding: 20, background: "#f5f6fa", overflow: "hidden" }}>
-        <Outlet />
+      <main style={{ flex: 1, background: "#f5f6fa", overflow: "hidden", display: "flex", flexDirection: "column", position: "relative" }}>
+        <button
+          onClick={logout}
+          style={{
+            position: 'absolute',
+            top: 10,
+            right: 20,
+            background: 'transparent',
+            border: 'none',
+            color: '#666',
+            cursor: 'pointer',
+            fontSize: 14,
+            textDecoration: 'underline',
+            padding: '4px 8px',
+            zIndex: 1000
+          }}
+        >
+          Wyloguj
+        </button>
+        <div style={{ flex: 1, overflow: 'auto', padding: '10px 20px 20px 20px' }}>
+          <Outlet />
+        </div>
       </main>
     </div>
   );
