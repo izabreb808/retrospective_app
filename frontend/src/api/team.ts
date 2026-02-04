@@ -1,0 +1,18 @@
+import axios from "axios";
+
+const API = "http://localhost:5000";
+
+const authHeader = () => ({
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  },
+});
+
+export const getTeam = () =>
+  axios.get(`${API}/team`, authHeader());
+
+export const addTeamMember = (name: string, role: string, avatar: string) =>
+  axios.post(`${API}/team`, { name, role, avatar }, authHeader());
+
+export const deleteTeamMember = (id: string) =>
+  axios.delete(`${API}/team/${id}`, authHeader());

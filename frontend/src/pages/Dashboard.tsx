@@ -41,7 +41,7 @@ export const DashboardLayout = () => {
       </aside>
 
       {/* MAIN */}
-      <main style={{ flex: 1, padding: 40, background: "#f5f6fa" }}>
+      <main style={{ flex: 1, padding: 20, background: "#f5f6fa", overflow: "hidden" }}>
         <Outlet />
       </main>
     </div>

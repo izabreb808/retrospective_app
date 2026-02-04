@@ -16,15 +16,27 @@ export type ColumnType = {
   cards: CardType[];
 };
 
-export const RetroBoard = () => {
+export type RetroData = {
+  name: string;
+  columns: ColumnType[];
+};
+
+type Props = {
+  onNameChange?: (name: string) => void;
+};
+
+export const RetroBoard = ({ onNameChange }: Props) => {
   const { id } = useParams<{ id: string }>();
   const [columns, setColumns] = useState<ColumnType[]>([]);
 
   useEffect(() => {
     if (id) {
-      getRetro(id).then(res => setColumns(res.data.columns)).catch(console.error);
+      getRetro(id).then(res => {
+        setColumns(res.data.columns);
+        onNameChange?.(res.data.name);
+      }).catch(console.error);
     }
-  }, [id]);
+  }, [id, onNameChange]);
 
   useEffect(() => {
     if (id && columns.length) {

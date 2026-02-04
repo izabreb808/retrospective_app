@@ -37,6 +37,7 @@ export const RetroColumn = ({ column, onAdd, onVote, onDelete }: Props) => {
         <input
           value={text}
           onChange={e => setText(e.target.value)}
+          onKeyDown={e => e.key === 'Enter' && handleAdd()}
           placeholder="Dodaj kartę..."
         />
         <button onClick={handleAdd}>+</button>
