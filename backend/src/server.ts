@@ -132,6 +132,13 @@ app.post("/login", async (req, res) => {
   res.json({ token });
 });
 
+// Pobierz dane użytkownika
+app.get("/user", auth, async (req: any, res) => {
+  const user = await User.findById(req.userId).select("-password");
+  if (!user) return res.status(404).json({ error: "Użytkownik nie znaleziony" });
+  res.json({ username: user.email });
+});
+
 // Twórz zespół
 app.post("/team/create", auth, async (req: any, res) => {
   const { name } = req.body;

@@ -6,8 +6,8 @@ import { DashboardLayout } from "./pages/Dashboard";
 import { Home } from "./pages/Home";
 import { Retrospectives } from "./pages/Retrospectives";
 import { RetrospectiveBoard } from "./pages/RetrospectiveBoard";
-
 import { Team } from "./pages/Team";
+import { Wheel } from "./pages/Wheel";
 
 function App() {
   return (
@@ -27,6 +27,7 @@ function App() {
           <Route path="retrospectives" element={<Retrospectives />} />
           <Route path="retrospectives/:id" element={<RetrospectiveBoard />} />
           <Route path="team" element={<Team />} />
+          <Route path="wheel" element={<Wheel />} />
         </Route>
       </Routes>
     </BrowserRouter>

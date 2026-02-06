@@ -1,9 +1,19 @@
 import { Outlet, useNavigate, NavLink } from "react-router-dom";
 import { Button } from "@mui/material";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import "@/dashboard.css";
 
 export const DashboardLayout = () => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState<string>("");
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/user", {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    }).then(res => setUsername(res.data.username))
+      .catch(() => navigate("/"));
+  }, [navigate]);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -28,8 +38,12 @@ export const DashboardLayout = () => {
         <NavLink to="/app" style={linkStyle}>🏠 Strona główna</NavLink>
         <NavLink to="/app/retrospectives" style={linkStyle}>📝 Retrospektywy</NavLink>
         <NavLink to="/app/team" style={linkStyle}>👥 Zespół</NavLink>
+        <NavLink to="/app/wheel" style={linkStyle}>🎡 Koło fortuny</NavLink>
 
         <div style={{ marginTop: "auto" }}>
+          <div style={{ color: '#bdc3c7', fontSize: 14, marginBottom: 10 }}>
+            Zalogowany: {username}
+          </div>
           <Button
             variant="contained"
             fullWidth
