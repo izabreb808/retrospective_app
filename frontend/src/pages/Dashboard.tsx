@@ -1,5 +1,4 @@
 import { Outlet, useNavigate, NavLink } from "react-router-dom";
-import { Button } from "@mui/material";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "@/dashboard.css";
@@ -36,25 +35,15 @@ export const DashboardLayout = () => {
         <h2>Retrospektywa</h2>
 
         <NavLink to="/app" style={linkStyle}>🏠 Strona główna</NavLink>
+        <NavLink to="/app/team" style={linkStyle}>👥 Zespoły</NavLink>
         <NavLink to="/app/retrospectives" style={linkStyle}>📝 Retrospektywy</NavLink>
-        <NavLink to="/app/team" style={linkStyle}>👥 Zespół</NavLink>
         <NavLink to="/app/wheel" style={linkStyle}>🎡 Koło fortuny</NavLink>
+        <NavLink to="/app/statistics" style={linkStyle}>📊 Statystyki</NavLink>
 
         <div style={{ marginTop: "auto" }}>
           <div style={{ color: '#bdc3c7', fontSize: 14, marginBottom: 10 }}>
             Zalogowany: {username}
           </div>
-          <Button
-            variant="contained"
-            fullWidth
-            onClick={logout}
-            sx={{ 
-              bgcolor: '#3498db',
-              '&:hover': { bgcolor: '#2980b9' }
-            }}
-          >
-            Wyloguj
-          </Button>
         </div>
       </aside>
 

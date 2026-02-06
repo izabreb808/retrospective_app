@@ -8,6 +8,7 @@ import { Retrospectives } from "./pages/Retrospectives";
 import { RetrospectiveBoard } from "./pages/RetrospectiveBoard";
 import { Team } from "./pages/Team";
 import { Wheel } from "./pages/Wheel";
+import { Statistics } from "./pages/Statistics";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="retrospectives/:id" element={<RetrospectiveBoard />} />
           <Route path="team" element={<Team />} />
           <Route path="wheel" element={<Wheel />} />
+          <Route path="statistics" element={<Statistics />} />
         </Route>
       </Routes>
     </BrowserRouter>
