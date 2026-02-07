@@ -8,7 +8,7 @@ export const DashboardLayout = () => {
   const [username, setUsername] = useState<string>("");
 
   useEffect(() => {
-    axios.get("http://localhost:5000/user", {
+    axios.get("https://retrospective-app-w474.onrender.com/user", {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     }).then(res => setUsername(res.data.username))
       .catch(() => navigate("/"));

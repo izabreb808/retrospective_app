@@ -27,7 +27,7 @@ export const Wheel = () => {
   const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/teams", {
+    axios.get("https://retrospective-app-w474.onrender.com/teams", {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     }).then(res => {
       console.log('Zespoły:', res.data);
@@ -42,7 +42,7 @@ export const Wheel = () => {
 
   const loadTeamMembers = (teamId: string) => {
     axios.post(
-      "http://localhost:5000/team/switch",
+      "https://retrospective-app-w474.onrender.com/team/switch",
       { teamId },
       { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
     ).then(() => {

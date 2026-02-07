@@ -26,7 +26,7 @@ export const Team = () => {
   const [teamCode, setTeamCode] = useState("");
 
   const loadTeams = () => {
-    axios.get("http://localhost:5000/teams", {
+    axios.get("https://retrospective-app-w474.onrender.com/teams", {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
     }).then(res => setTeams(res.data)).catch(console.error);
   };
@@ -39,7 +39,7 @@ export const Team = () => {
     if (!teamName.trim()) return;
     try {
       const res = await axios.post(
-        "http://localhost:5000/team/create",
+        "https://retrospective-app-w474.onrender.com/team/create",
         { name: teamName },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
@@ -56,7 +56,7 @@ export const Team = () => {
     if (!teamCode.trim()) return;
     try {
       await axios.post(
-        "http://localhost:5000/team/join",
+        "https://retrospective-app-w474.onrender.com/team/join",
         { code: teamCode },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
@@ -70,7 +70,7 @@ export const Team = () => {
 
   const openTeam = async (team: TeamInfo) => {
     await axios.post(
-      "http://localhost:5000/team/switch",
+      "https://retrospective-app-w474.onrender.com/team/switch",
       { teamId: team._id },
       { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
     );

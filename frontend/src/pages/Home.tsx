@@ -8,10 +8,10 @@ export const Home = () => {
 
   useEffect(() => {
     Promise.all([
-      axios.get("http://localhost:5000/retros", {
+      axios.get("https://retrospective-app-w474.onrender.com/retros", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
       }),
-      axios.get("http://localhost:5000/teams", {
+      axios.get("https://retrospective-app-w474.onrender.com/teams", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
       })
     ]).then(([retrosRes, teamsRes]) => {

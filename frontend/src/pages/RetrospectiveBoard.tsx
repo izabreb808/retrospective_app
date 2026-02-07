@@ -14,7 +14,7 @@ export const RetrospectiveBoard = () => {
   const saveName = () => {
     if (id) {
       axios.put(
-        `http://localhost:5000/retros/${id}`,
+        `https://retrospective-app-w474.onrender.com/retros/${id}`,
         { name },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       ).catch(console.error);
@@ -25,7 +25,7 @@ export const RetrospectiveBoard = () => {
   const closeRetro = () => {
     if (id && window.confirm('Czy na pewno chcesz zamknąć tę retrospektywę?')) {
       axios.put(
-        `http://localhost:5000/retros/${id}`,
+        `https://retrospective-app-w474.onrender.com/retros/${id}`,
         { status: 'closed' },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       ).then(() => {

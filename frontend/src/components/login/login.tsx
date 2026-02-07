@@ -20,7 +20,7 @@ export const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/login", { email, password });
+      const res = await axios.post("https://retrospective-app-w474.onrender.com/login", { email, password });
       localStorage.setItem("token", res.data.token);
       navigate("/app");
     } catch (error) {

@@ -12,7 +12,7 @@ export const TeamSetup = () => {
   const createTeam = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/team/create",
+        "https://retrospective-app-w474.onrender.com/team/create",
         { name: teamName },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
@@ -26,7 +26,7 @@ export const TeamSetup = () => {
   const joinTeam = async () => {
     try {
       await axios.post(
-        "http://localhost:5000/team/join",
+        "https://retrospective-app-w474.onrender.com/team/join",
         { code: teamCode },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
