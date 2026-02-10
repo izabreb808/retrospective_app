@@ -270,21 +270,16 @@ export const Wheel = () => {
       {winner && (
         <div style={{
           background: 'white',
-          padding: 30,
+          padding: 20,
           borderRadius: 10,
           boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-          maxWidth: 400,
-          margin: '40px auto 0',
+          maxWidth: 300,
+          margin: '30px auto 0',
           textAlign: 'center'
         }}>
-          <h2 style={{ marginBottom: 20 }}>🎉 Wylosowano:</h2>
-          <img
-            src={winner.avatar}
-            alt={winner.name}
-            style={{ width: 100, height: 100, borderRadius: '50%', marginBottom: 15 }}
-          />
-          <h3 style={{ margin: '10px 0' }}>{winner.name}</h3>
-          <p style={{ color: '#666' }}>{winner.role}</p>
+          <h2 style={{ marginBottom: 15, fontSize: 20 }}>🎉 Wylosowano:</h2>
+          <h3 style={{ margin: '10px 0', fontSize: 18 }}>{winner.name}</h3>
+          <p style={{ color: '#666', fontSize: 14 }}>{winner.role}</p>
         </div>
       )}
     </div>

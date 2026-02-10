@@ -41,11 +41,12 @@ export const RetrospectiveBoard = () => {
         style={{
           display: "flex",
           justifyContent: "space-between",
+          alignItems: "center",
           padding: 12,
           borderBottom: "1px solid #ddd",
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
           <button onClick={() => navigate('/app/retrospectives')} style={{ padding: '8px 16px' }}>
             ←
           </button>
@@ -72,22 +73,23 @@ export const RetrospectiveBoard = () => {
           </h2>
         )}
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 30, flex: 1, justifyContent: 'center' }}>
+          <Timer />
           {status === 'open' && (
             <button 
               onClick={closeRetro} 
-              style={{ padding: '8px 16px', background: '#ff9800', color: 'white', border: 'none', borderRadius: 4, cursor: 'pointer' }}
+              style={{ padding: '8px 16px', background: '#ff9800', color: 'white', border: 'none', borderRadius: 4, cursor: 'pointer', whiteSpace: 'nowrap' }}
             >
               Zamknij retrospektywę
             </button>
           )}
           {status === 'closed' && (
-            <span style={{ padding: '8px 16px', background: '#f44336', color: 'white', borderRadius: 4 }}>
+            <span style={{ padding: '8px 16px', background: '#f44336', color: 'white', borderRadius: 4, whiteSpace: 'nowrap' }}>
               🔒 Zamknięta
             </span>
           )}
-          <Timer />
         </div>
+        <div style={{ flex: 1 }} />
       </div>
 
       <div style={{ flex: 1, overflow: "hidden", opacity: status === 'closed' ? 0.6 : 1, pointerEvents: status === 'closed' ? 'none' : 'auto' }}>
