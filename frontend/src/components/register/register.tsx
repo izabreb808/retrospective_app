@@ -53,8 +53,8 @@ export const Register = ({ open, onClose }: RegisterProps) => {
       <DialogContent>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16, paddingTop: 8 }}>
           <TextField
-            label="Email"
-            type="email"
+            label="Login"
+            type="text"
             value={email}
             onChange={(e: { target: { value: SetStateAction<string>; }; }) => setEmail(e.target.value)}
             fullWidth

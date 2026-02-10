@@ -43,7 +43,7 @@ export const Login = () => {
         <h1>Logowanie</h1>
 
         <input
-          placeholder="Email"
+          placeholder="Login"
           value={email}
           onChange={e => setEmail(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && handleLogin()}
