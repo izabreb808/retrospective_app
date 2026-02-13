@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Timer } from "../components/timer/timer";
 import { RetroBoard } from "../components/retro/retroBoard";
+import { deleteRetro } from "../api/retro";
 import axios from "axios";
 
 export const RetrospectiveBoard = () => {
@@ -32,6 +33,17 @@ export const RetrospectiveBoard = () => {
         setStatus('closed');
         alert('Retrospektywa została zamknięta');
       }).catch(console.error);
+    }
+  };
+
+  const handleDelete = () => {
+    if (id && window.confirm('Czy na pewno chcesz usunąć tę retrospektywę?')) {
+      deleteRetro(id)
+        .then(() => {
+          alert('Retrospektywa została usunięta');
+          navigate('/app/retrospectives');
+        })
+        .catch(err => alert('Błąd: ' + (err.response?.data?.error || err.message)));
     }
   };
 
@@ -73,7 +85,7 @@ export const RetrospectiveBoard = () => {
           </h2>
         )}
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 30, flex: 1, justifyContent: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1, justifyContent: 'center', marginLeft: '10px' }}>
           <Timer />
           {status === 'open' && (
             <button 
@@ -85,9 +97,15 @@ export const RetrospectiveBoard = () => {
           )}
           {status === 'closed' && (
             <span style={{ padding: '8px 16px', background: '#f44336', color: 'white', borderRadius: 4, whiteSpace: 'nowrap' }}>
-              🔒 Zamknięta
+              Zamknięta
             </span>
           )}
+          <button 
+            onClick={handleDelete} 
+            style={{ padding: '8px 16px', background: '#dc3545', color: 'white', border: 'none', borderRadius: 4, cursor: 'pointer', whiteSpace: 'nowrap' }}
+          >
+            🗑️ Usuń
+          </button>
         </div>
         <div style={{ flex: 1 }} />
       </div>

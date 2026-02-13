@@ -201,10 +201,10 @@ app.post("/retros", auth, async (req: any, res) => {
     name,
     date,
     columns: [
-      { id: "good", title: "✅ Poszło dobrze", cards: [] },
-      { id: "bad", title: "❌ Problemy", cards: [] },
-      { id: "improve", title: "🔧 Do poprawy", cards: [] },
-      { id: "actions", title: "🎯 Action items", cards: [] },
+      { id: "good", title: "Poszło dobrze", cards: [] },
+      { id: "bad", title: "Problemy", cards: [] },
+      { id: "improve", title: "Do poprawy", cards: [] },
+      { id: "actions", title: "Działania do podjęcia", cards: [] },
     ],
   });
   res.json(retro);
@@ -234,6 +234,14 @@ app.put("/retros/:id", auth, async (req: any, res) => {
   );
   if (!retro) return res.status(404).json({ error: "Nie znaleziono" });
   res.json(retro);
+});
+
+// Usuwanie retrospektywy
+app.delete("/retros/:id", auth, async (req: any, res) => {
+  const user = await User.findById(req.userId);
+  const retro = await Retro.findOneAndDelete({ _id: req.params.id, teamId: user?.activeTeamId });
+  if (!retro) return res.status(404).json({ error: "Nie znaleziono" });
+  res.json({ success: true });
 });
 
 // Zespół

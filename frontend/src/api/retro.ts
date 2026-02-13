@@ -20,3 +20,6 @@ export const getRetro = (id: string) =>
 
 export const saveRetro = (id: string, columns: unknown) =>
   axios.put(`${API}/retros/${id}`, { columns }, authHeader());
+
+export const deleteRetro = (id: string) =>
+  axios.delete(`${API}/retros/${id}`, authHeader());
