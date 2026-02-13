@@ -244,6 +244,42 @@ app.delete("/retros/:id", auth, async (req: any, res) => {
   res.json({ success: true });
 });
 
+// TYMCZASOWY - Aktualizacja tytułów kolumn
+app.post("/retros/fix-titles", auth, async (req: any, res) => {
+  const result = await Retro.updateMany(
+    {},
+    [{
+      $set: {
+        columns: {
+          $map: {
+            input: "$columns",
+            as: "col",
+            in: {
+              $mergeObjects: [
+                "$$col",
+                {
+                  title: {
+                    $switch: {
+                      branches: [
+                        { case: { $eq: ["$$col.id", "good"] }, then: "Poszło dobrze" },
+                        { case: { $eq: ["$$col.id", "bad"] }, then: "Problemy" },
+                        { case: { $eq: ["$$col.id", "improve"] }, then: "Do poprawy" },
+                        { case: { $eq: ["$$col.id", "actions"] }, then: "Działania do podjęcia" }
+                      ],
+                      default: "$$col.title"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }]
+  );
+  res.json({ message: "Zaktualizowano", modified: result.modifiedCount });
+});
+
 // Zespół
 app.get("/team", auth, async (req: any, res) => {
   const user = await User.findById(req.userId);

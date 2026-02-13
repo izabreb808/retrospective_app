@@ -20,7 +20,7 @@ export const RetroColumn = ({ column, onAdd, onVote, onDelete }: Props) => {
 
   return (
     <div className="column">
-      <h3>{column.title}</h3>
+      <h3 style={{ textAlign: 'center' }}>{column.title}</h3>
 
       <div className="cards">
         {column.cards.map(card => (
