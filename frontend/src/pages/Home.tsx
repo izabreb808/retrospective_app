@@ -22,7 +22,7 @@ export const Home = () => {
   const cards = [
     { title: "Zespoły", icon: "👥", desc: `${stats.teams} zespołów`, path: "/app/team", color: "#2ecc71" },
     { title: "Retrospektywy", icon: "📝", desc: `${stats.retros} retrospektyw`, path: "/app/retrospectives", color: "#3498db" },
-    { title: "Koło fortuny", icon: "🎡", desc: "Losuj osoby do wypowiedzi", path: "/app/wheel", color: "#e74c3c" },
+    { title: "Losowanie", icon: "🎡", desc: "Losuj osoby do wypowiedzi", path: "/app/wheel", color: "#e74c3c" },
     { title: "Statystyki", icon: "📊", desc: "Przeglądaj i eksportuj dane", path: "/app/statistics", color: "#9b59b6" },
   ];
 

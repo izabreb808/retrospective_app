@@ -37,7 +37,7 @@ export const DashboardLayout = () => {
         <NavLink to="/app" style={linkStyle}>🏠 Strona główna</NavLink>
         <NavLink to="/app/team" style={linkStyle}>👥 Zespoły</NavLink>
         <NavLink to="/app/retrospectives" style={linkStyle}>📝 Retrospektywy</NavLink>
-        <NavLink to="/app/wheel" style={linkStyle}>🎡 Koło fortuny</NavLink>
+        <NavLink to="/app/wheel" style={linkStyle}>🎡 Losowanie</NavLink>
         <NavLink to="/app/statistics" style={linkStyle}>📊 Statystyki</NavLink>
 
         <div style={{ marginTop: "auto" }}>

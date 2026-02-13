@@ -135,7 +135,7 @@ export const Wheel = () => {
         }
       `}</style>
       
-      <h1 style={{ marginBottom: 30 }}>Koło fortuny</h1>
+      <h1 style={{ marginBottom: 30 }}>Losowanie</h1>
       
       <div style={{ position: 'relative' }}>
         <div style={{ position: 'absolute', left: 0, top: 0, width: 250, paddingTop: 20 }}>
